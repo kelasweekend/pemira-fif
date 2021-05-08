@@ -18,9 +18,9 @@ class VoteController extends Controller
         return view('frontend.vote', compact('vote'));
     }
 
-    public function dashboard(Request $request)
+    public function quickcount()
     {
-        
+        return view('frontend.quickcount');
     }
     public function detail($id)
     {

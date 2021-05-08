@@ -16,7 +16,9 @@ use App\Http\Controllers\Frontend\HomeController;
 
 Route::get('/', HomeController::class);
 
-Auth::routes();
+Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 
 Route::group(['middleware' => ['auth', 'dontback']], function() {
@@ -25,8 +27,10 @@ Route::group(['middleware' => ['auth', 'dontback']], function() {
     Route::get('vote/detail/{id}',[App\Http\Controllers\Frontend\VoteController::class, 'detail'])->name('detail');
     Route::post('vote',[App\Http\Controllers\Frontend\VoteController::class, 'send_voting'])->name('send');
     Route::get('vote/bukti',[App\Http\Controllers\Frontend\VoteController::class, 'bukti'])->name('bukti');
+    Route::get('quickcount',[App\Http\Controllers\Frontend\VoteController::class, 'quickcount'])->name('quickcount');
     // admin system
     Route::redirect('admin', 'admin/pemira');
+    Route::redirect('vote/bukti', 'vote');
     Route::resource('dashboard/roles', App\Http\Controllers\Role\RoleController::class);
     Route::resource('dashboard/permissions', App\Http\Controllers\Role\PermissionsController::class);
     Route::resource('dashboard/users', App\Http\Controllers\User\UserController::class);
