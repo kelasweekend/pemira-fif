@@ -31,6 +31,8 @@ class PemilihController extends Controller
                 'name' => $line['NAMA'],
                 'email' => $line['NIM'].'@ittelkom-pwt.ac.id',
                 'jurusan' => $line['JURUSAN'],
+                'kelas' => $line['KELAS'],
+                'sesi' => TRUE,
                 'password' => Hash::make($line['NIM'])
             ]);
             $user->assignRole('guest');

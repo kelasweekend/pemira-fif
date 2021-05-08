@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class PemilihController extends Controller
 {
@@ -23,6 +24,26 @@ class PemilihController extends Controller
             ->get();
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->filter(function ($instance) use ($request) {
+                    if (!empty($request->get('kelas'))) {
+                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
+                            return Str::contains($row['kelas'], $request->get('kelas')) ? true : false;
+                        });
+                    }
+
+                    if (!empty($request->get('search'))) {
+                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
+                            if (Str::contains(Str::lower($row['kelas']), Str::lower($request->get('search')))){
+                                return true;
+                            }else if (Str::contains(Str::lower($row['kelas']), Str::lower($request->get('search')))) {
+                                return true;
+                            }
+
+                            return false;
+                        });
+                    }
+
+                })
                 ->addColumn('action', function ($row) {
                     if (Auth::user()->hasPermissionTo('view-only')) {
                         $btn = '<button type="button" class="btn btn-secondary col-12">View Only</button>';

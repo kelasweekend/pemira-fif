@@ -24,6 +24,15 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
+                            {{-- filter --}}
+                            <div class="card p-2 rounded shadow">
+                                <h5>Filter Kelas</h5>
+                                <form class="d-flex">
+                                    <input type="text" name="kelas" class="form-control searchKelas"
+                                        placeholder="Search for Email Only...">
+                                </form>
+                            </div>
+
                             <div class="card">
                                 <div class="card-header">
                                     <h2 class="card-title">@yield('title')</h2>
@@ -51,6 +60,7 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Jurusan</th>
+                                                <th>Kelas</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -66,6 +76,7 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Jurusan</th>
+                                                <th>Kelas</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
@@ -184,8 +195,8 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <a href="{{ url('images/sampel.xlsx')}}" class="btn btn-warning">Unduh Sample</a>
-                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                <a href="{{ url('images/sampel.xlsx') }}" class="btn btn-warning">Unduh Sample</a>
+                                <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -214,21 +225,21 @@
     <script type="text/javascript">
         $(function() {
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
                 lengthChange: true,
-                ajax: "{{ route('pemilih.index') }}",
                 pageLength: 5,
                 lengthMenu: [5, 10, 20, 50, 100, 200, 500],
                 responsive: true,
                 autoWidth: false,
+                ajax: {
+                    url: "{{ route('pemilih.index') }}",
+                    data: function(d) {
+                        d.email = $('.searchKelas').val(),
+                            d.search = $('input[name="kelas"]').val()
+                    }
+                },
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -250,12 +261,19 @@
                         name: 'jurusan'
                     },
                     {
+                        data: 'kelas',
+                        name: 'kelas'
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         orderable: false,
                         searchable: false
                     },
                 ]
+            });
+            $(".searchKelas").keyup(function() {
+                table.draw();
             });
 
             $('#createNewItem').click(function() {
@@ -369,4 +387,56 @@
         });
 
     </script>
+    {{-- <script type="text/javascript">
+        $(function() {
+
+            var table = $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('pemilih.index') }}",
+                    data: function(d) {
+                        d.email = $('.searchKelas').val(),
+                            d.search = $('input[name="kelas"]').val()
+                    }
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'nim',
+                        name: 'nim'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'jurusan',
+                        name: 'jurusan'
+                    },
+                    {
+                        data: 'kelas',
+                        name: 'kelas'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+
+            $(".searchKelas").keyup(function() {
+                table.draw();
+            });
+        });
+
+    </script> --}}
 @endsection

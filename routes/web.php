@@ -22,14 +22,17 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'dontback']], function() {
     // vote system
     Route::get('vote',[App\Http\Controllers\Frontend\VoteController::class, 'index'])->name('vote');
+    Route::get('vote/detail/{id}',[App\Http\Controllers\Frontend\VoteController::class, 'detail'])->name('detail');
     Route::post('vote',[App\Http\Controllers\Frontend\VoteController::class, 'send_voting'])->name('send');
     Route::get('vote/bukti',[App\Http\Controllers\Frontend\VoteController::class, 'bukti'])->name('bukti');
     // admin system
+    Route::redirect('admin', 'admin/pemira');
     Route::resource('dashboard/roles', App\Http\Controllers\Role\RoleController::class);
     Route::resource('dashboard/permissions', App\Http\Controllers\Role\PermissionsController::class);
     Route::resource('dashboard/users', App\Http\Controllers\User\UserController::class);
     Route::resource('admin/pemira', App\Http\Controllers\Backend\PemiraController::class);
     Route::resource('admin/pemilih', App\Http\Controllers\Backend\PemilihController::class);
+    Route::get('admin/vote',[App\Http\Controllers\Frontend\VoteController::class, 'dashboard'])->name('hasil');
 
     // excel pemilih
     Route::get('pemilih/export', [App\Http\Controllers\Excel\PemilihController::class, 'index'])->name('export-pemilih');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -36,5 +37,24 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated()
+    {
+        if (auth()->user()->sesi == FALSE) {
+            $this->guard()->logout();
+            return redirect()->route('login')->with('rusak', 'Sesi Sudah Berakhir');
+        }
+    }
+
+    public function logout(Request $request) {
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        if($request->ajax()) {
+            return response()->json(['success' => 'Terima Kasih Telah Memilih'], 200);
+        }
+        else {
+            return redirect('/');
+        }
     }
 }

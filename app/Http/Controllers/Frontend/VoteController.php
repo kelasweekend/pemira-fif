@@ -3,17 +3,30 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\Calon;
 use App\Models\Frontend\Vote;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 
 class VoteController extends Controller
 {
     public function index()
     {
-        return view('frontend.vote');
+        $vote = Calon::all();
+        return view('frontend.vote', compact('vote'));
     }
 
+    public function dashboard(Request $request)
+    {
+        
+    }
+    public function detail($id)
+    {
+        $item = Calon::find($id);
+        return response()->json($item);
+    }
     public function send_voting(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -33,6 +46,9 @@ class VoteController extends Controller
                 $vote->id_calon = $request->calon;
                 $vote->save();
 
+                User::find(auth()->user()->id)->update(['sesi'=>False]);
+
+                // $this->guard()->logout();
                 return response()->json(['success' => 'Terima Kasih Telah Memilih'], 200);
             }else{
                 return response()->json(['error' => 'sudah vote anda'], 200);

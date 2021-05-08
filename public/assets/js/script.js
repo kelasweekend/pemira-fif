@@ -76,8 +76,8 @@ $(document).ready(function () {
 });
 
 // send vote
-$(document).ready(function() {
-    $(".vote").click(function() {
+$(document).ready(function () {
+    $(".vote").click(function () {
         let calon = $(this).attr("data-calon");
         let url = $(this).attr("data-url");
         let _token = $('meta[name="csrf-token"]').attr("content");
@@ -98,17 +98,33 @@ $(document).ready(function() {
                         calon: calon,
                         _token: _token
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.success) {
-                            Swal.fire({
-                                title: 'Terima Kasih !',
-                                text: response.success,
-                                icon: 'success',
-                                confirmButtonText: 'Cetak Bukti'
-                            }).then(function() {
-                                // location.reload();
-                                console.log('bukti tercetak');
-                                window.location.href = "/vote/bukti";
+                            $.ajax({
+                                url: "/logout",
+                                type: "POST",
+                                data: {
+                                    _token: _token
+                                },
+                                success: function (response) {
+                                    if (response.success) {
+                                        Swal.fire({
+                                            title: 'Terima Kasih !',
+                                            text: response.success,
+                                            icon: 'success',
+                                        }).then(function () {
+                                            window.location.href = "/";
+                                        });
+                                    }
+                                },
+                                error: function () {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Oops...",
+                                        text: "Something went wrong!",
+                                        confirmButtonText: 'Cancel'
+                                    });
+                                }
                             });
                         } else {
                             Swal.fire({
@@ -119,7 +135,7 @@ $(document).ready(function() {
                             });
                         }
                     },
-                    error: function() {
+                    error: function () {
                         Swal.fire({
                             icon: "error",
                             title: "Oops...",
@@ -130,5 +146,25 @@ $(document).ready(function() {
                 });
             }
         });
+    });
+});
+
+$(document).ready(function () {
+    $(".detail").click(function () {
+        let url = $(this).data('url');
+        $('.tombol').html("Save Change");
+        $.get(url, function (data) {
+            $('#modelHeading').html("Paslon Nomor : " + data.nomor_urut);
+            $('#ajaxModel').modal('show');
+            // data
+            $("#ketua").text("Nama ketua : " + data.nama_ketua);
+            $("#wakil").text("Nama Wakil : " + data.nama_wakil);
+            $("#jurusan").text("Asal Jurusan : " + data.jurusan);
+            $("#foto").attr("src","/images/"+data.image);
+            $(".rekam_jejak").append(data.rekam_jejak);
+            $(".visi").append(data.visi);
+            $(".misi").append(data.misi);
+            console.log(data)
+        })
     });
 });
