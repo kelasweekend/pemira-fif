@@ -36,7 +36,10 @@ Route::group(['middleware' => ['auth', 'dontback']], function() {
     Route::resource('dashboard/users', App\Http\Controllers\User\UserController::class);
     Route::resource('admin/pemira', App\Http\Controllers\Backend\PemiraController::class);
     Route::resource('admin/pemilih', App\Http\Controllers\Backend\PemilihController::class);
+    Route::post('admin/sesi/aktif',[App\Http\Controllers\Backend\PemilihController::class, 'sesi_aktif']);
+    Route::post('admin/sesi/pasif',[App\Http\Controllers\Backend\PemilihController::class, 'sesi_pasif']);
     Route::get('admin/vote',[App\Http\Controllers\Frontend\VoteController::class, 'dashboard'])->name('hasil');
+    Route::delete('admin/vote/{id}',[App\Http\Controllers\Frontend\VoteController::class, 'hapus_vote'])->name('hapus_vote');
 
     // excel pemilih
     Route::get('pemilih/export', [App\Http\Controllers\Excel\PemilihController::class, 'index'])->name('export-pemilih');

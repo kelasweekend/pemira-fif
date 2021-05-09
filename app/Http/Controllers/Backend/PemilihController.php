@@ -53,10 +53,31 @@ class PemilihController extends Controller
                     }
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('sesi', function ($row) {
+                    if ($row->sesi == TRUE) {
+                        $sesi = '<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input sesi_pasif" id="customSwitch'. $row->id .'" data-id="' . $row->id . '" checked><label class="custom-control-label" for="customSwitch'. $row->id .'">Aktif</label></div>';
+                    } else {
+                        $sesi = '<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input sesi_aktif" id="customSwitch'. $row->id .'" data-id="' . $row->id . '"><label class="custom-control-label" for="customSwitch'. $row->id .'">Non Aktif</label></div>';
+                    }
+                    
+                    return $sesi;
+                })
+                ->rawColumns(['action', 'sesi'])
                 ->make(true);
         }
         return view('pemira.pemilih');
+    }
+
+    public function sesi_aktif(Request $request)
+    {
+        User::where('id', $request->id)->update(['sesi' => TRUE]);
+        return response()->json(['success' => 'Sesi Berhasil di Aktifkan']);
+    }
+
+    public function sesi_pasif(Request $request)
+    {
+        User::where('id', $request->id)->update(['sesi' => FALSE]);
+        return response()->json(['success' => 'Sesi Berhasil di Matikan']);
     }
     public function store(Request $request)
     {

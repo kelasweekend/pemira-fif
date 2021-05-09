@@ -61,6 +61,7 @@
                                                 <th>Email</th>
                                                 <th>Jurusan</th>
                                                 <th>Kelas</th>
+                                                <th>Sesi</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -77,6 +78,7 @@
                                                 <th>Email</th>
                                                 <th>Jurusan</th>
                                                 <th>Kelas</th>
+                                                <th>Sesi</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
@@ -265,6 +267,10 @@
                         name: 'kelas'
                     },
                     {
+                        data: 'sesi',
+                        name: 'sesi'
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         orderable: false,
@@ -384,6 +390,157 @@
                 })
                 });
             @endcan
+
+            // sesi
+            // $('body').on('click', '.sesi', function() {
+            //     let _token = $('meta[name="csrf-token"]').attr("content");
+            //     var id = $(this).data("id");
+            //     var url = $(this).data("url");
+            //     Swal.fire({
+            //         title: 'Apakah Anda Yakin ?',
+            //         text: "Anda Akan Mengubah Sesi User ini !",
+            //         icon: 'warning',
+            //         showCancelButton: true,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //         confirmButtonText: 'Change Now'
+            //     }).then((result) => {
+            //         if (result.isConfirmed) {
+            //             $.ajax({
+            //                 type: "POST",
+            //                 url: "/admin/sesi",
+            //                 data: {
+            //                         _token: _token,
+            //                         id:id
+            //                     },
+            //                 success: function(response) {
+            //                     if (response.success) {
+            //                         Swal.fire({
+            //                             icon: "success",
+            //                             title: "Selamat",
+            //                             text: response.success
+            //                         });
+            //                         table.draw();
+            //                     } else {
+            //                         Swal.fire({
+            //                             icon: "error",
+            //                             title: "Mohon Maaf !",
+            //                             text: response.error
+            //                         });
+            //                     }
+            //                 },
+            //                 error: function() {
+            //                     Swal.fire({
+            //                         icon: "error",
+            //                         title: "Oops...",
+            //                         text: "Something went wrong!"
+            //                     });
+            //                 }
+            //             });
+            //         }
+            //     })
+            // });
+            $('body').on('click', '.sesi_aktif', function() {
+                let id = $(this).attr("data-id");
+                let _token = $('meta[name="csrf-token"]').attr("content");
+                Swal.fire({
+                    title: 'Apakah Kamu Yakin ?',
+                    text: "Kamu akan mengubah sesi ini",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Change Now'
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/admin/sesi/aktif",
+                            type: "POST",
+                            data: {
+                                id: id,
+                                _token: _token
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Selamat",
+                                        text: response.success
+                                    });
+                                    table.draw();
+                                } else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Mohon Maaf !",
+                                        text: response.error,
+                                        confirmButtonText: 'Tutup'
+                                    });
+                                }
+                            },
+                            error: function() {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: "Something went wrong!",
+                                    confirmButtonText: 'Cancel'
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('body').on('click', '.sesi_pasif', function() {
+                let id = $(this).attr("data-id");
+                let _token = $('meta[name="csrf-token"]').attr("content");
+                Swal.fire({
+                    title: 'Apakah Kamu Yakin ?',
+                    text: "Kamu akan mengubah sesi ini",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Change Now'
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/admin/sesi/pasif",
+                            type: "POST",
+                            data: {
+                                id: id,
+                                _token: _token
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Selamat",
+                                        text: response.success
+                                    });
+                                    table.draw();
+                                } else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Mohon Maaf !",
+                                        text: response.error,
+                                        confirmButtonText: 'Tutup'
+                                    });
+                                }
+                            },
+                            error: function() {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: "Something went wrong!",
+                                    confirmButtonText: 'Cancel'
+                                });
+                            }
+                        });
+                    }
+                });
+            });
         });
 
     </script>

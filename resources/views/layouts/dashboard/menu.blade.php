@@ -66,9 +66,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('hasil')}}" class="nav-link {{ Request::is('dashboard/permissions') ? 'active' : null }}">
+                        <a href="{{route('hasil')}}" class="nav-link {{ Request::is('admin/vote') ? 'active' : null }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Quick Count</p>
+                            <p>Vote Management</p>
                         </a>
                     </li>
                 </ul>

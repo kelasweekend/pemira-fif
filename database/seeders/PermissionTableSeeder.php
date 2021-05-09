@@ -31,7 +31,9 @@ class PermissionTableSeeder extends Seeder
             'calon-create',
             'calon-delete',
             'create-pemilih',
-            'delete-pemilih'
+            'delete-pemilih',
+            // 
+            'vote-admin'
         ];
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
