@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Calon;
 use App\Models\Frontend\Vote;
+use App\Models\Setting\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,7 +44,7 @@ class VoteController extends Controller
         $pasif = User::where('sesi', FALSE)->count();
         $suara = Vote::all()->count();
         $pemilih = User::all()->count();
-        return view('vote.index' , compact('aktif', 'pasif', 'suara', 'pemilih'));
+        return view('vote.index', compact('aktif', 'pasif', 'suara', 'pemilih'));
     }
     public function hapus_vote($id)
     {
@@ -53,7 +54,30 @@ class VoteController extends Controller
 
     public function quickcount()
     {
-        return view('frontend.quickcount');
+        $set = Setting::find(1);
+        if ($set->tanggal == date('Y-m-d')) {
+            $total_pemilih = User::all()->count();
+            $suara_masuk = Vote::all()->count();
+            $golput = User::where('sesi', TRUE)->count();
+            $paslon = Calon::all();
+            $calon = [];
+            foreach ($paslon as $pesaing) {
+                $calon[] = $pesaing->id;
+            }
+            $user = [];
+            foreach ($calon as $key => $value) {
+                $user[] = Vote::where('id_calon', $value)->count();
+            }
+            return view('frontend.quickcount', [
+                'year' => json_encode($calon, JSON_NUMERIC_CHECK),
+                'user' => json_encode($user, JSON_NUMERIC_CHECK),
+                'total_pemilih' => $total_pemilih,
+                'suara_masuk' => $suara_masuk,
+                'golput' => $golput,
+            ]);
+        } else {
+            return view('frontend.coming');
+        }
     }
     public function detail($id)
     {

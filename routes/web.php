@@ -14,7 +14,10 @@ use App\Http\Controllers\Frontend\HomeController;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::get('/',[App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('index');
+Route::get('validasi',[App\Http\Controllers\Frontend\HomeController::class, 'validasi'])->name('validasi');
+Route::post('validasi',[App\Http\Controllers\Frontend\HomeController::class, 'validasi_send']);
+Route::get('quickcount',[App\Http\Controllers\Frontend\VoteController::class, 'quickcount'])->name('quickcount');
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
@@ -27,7 +30,6 @@ Route::group(['middleware' => ['auth', 'dontback']], function() {
     Route::get('vote/detail/{id}',[App\Http\Controllers\Frontend\VoteController::class, 'detail'])->name('detail');
     Route::post('vote',[App\Http\Controllers\Frontend\VoteController::class, 'send_voting'])->name('send');
     Route::get('vote/bukti',[App\Http\Controllers\Frontend\VoteController::class, 'bukti'])->name('bukti');
-    Route::get('quickcount',[App\Http\Controllers\Frontend\VoteController::class, 'quickcount'])->name('quickcount');
     // admin system
     Route::redirect('admin', 'admin/pemira');
     Route::redirect('vote/bukti', 'vote');
@@ -40,6 +42,7 @@ Route::group(['middleware' => ['auth', 'dontback']], function() {
     Route::post('admin/sesi/pasif',[App\Http\Controllers\Backend\PemilihController::class, 'sesi_pasif']);
     Route::get('admin/vote',[App\Http\Controllers\Frontend\VoteController::class, 'dashboard'])->name('hasil');
     Route::delete('admin/vote/{id}',[App\Http\Controllers\Frontend\VoteController::class, 'hapus_vote'])->name('hapus_vote');
+    Route::post('admin/setting',[App\Http\Controllers\Backend\SettingController::class, 'index']);
 
     // excel pemilih
     Route::get('pemilih/export', [App\Http\Controllers\Excel\PemilihController::class, 'index'])->name('export-pemilih');

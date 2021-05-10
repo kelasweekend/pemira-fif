@@ -19,35 +19,6 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white bayangan_1">
-        {{-- <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="assets/img/ittp.png" width="35" height="35" class="d-inline-block align-top" alt="">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Vote</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Quickcount</a>
-                    </li>
-                </ul>
-                @guest
-                    <a class="btn btn-info float-right" href="{{ route('login') }}" title="Login Now"><i
-                            class="fas fa-user mr-2"></i>Login</a>
-                </div>
-                <a class="btn btn-info float-right d-lg-none" href="{{ route('login') }}" title="Login Now"><i
-                        class="fas fa-user mr-2"></i>Login</a>
-            @else
-                <a class="btn btn-info float-right" href="{{ route('vote') }}" title="Vote Now"><i
-                        class="fas fa-poll mr-2"></i> Vote
-                    Now</a>
-            </div>
-            <a class="btn btn-info float-right d-lg-none" href="{{ route('vote') }}" title="Vote Now"><i
-                    class="fas fa-poll mr-2"></i> Vote
-                Now</a>
-        @endguest
-        </div> --}}
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="assets/img/ittp.png" width="35" height="35" class="d-inline-block align-top" alt="">
@@ -63,7 +34,10 @@
                         <a class="nav-link" href="{{ route('vote') }}">Vote</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Quickcount</a>
+                        <a class="nav-link" href="{{route('quickcount')}}">Quickcount</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('validasi')}}">Validasi</a>
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">
@@ -87,7 +61,7 @@
 
     <!-- footer -->
     <footer>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white bayangan_1 nav-bottom">
+        <nav class="navbar navbar-expand-lg navbar-light nav-bottom">
             <div class="container">
                 <p class="text-muted mx-auto mt-2">copyright 2021 All Reserved DPM FIF</p>
             </div>

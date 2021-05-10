@@ -24,14 +24,6 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            {{-- filter --}}
-                            <div class="card p-2 rounded shadow">
-                                <h5>Filter Kelas</h5>
-                                <form class="d-flex">
-                                    <input type="text" name="kelas" class="form-control searchKelas"
-                                        placeholder="Search for Email Only...">
-                                </form>
-                            </div>
 
                             <div class="card">
                                 <div class="card-header">
@@ -237,10 +229,6 @@
                 autoWidth: false,
                 ajax: {
                     url: "{{ route('pemilih.index') }}",
-                    data: function(d) {
-                        d.email = $('.searchKelas').val(),
-                            d.search = $('input[name="kelas"]').val()
-                    }
                 },
                 columns: [{
                         data: 'DT_RowIndex',
@@ -278,10 +266,6 @@
                     },
                 ]
             });
-            $(".searchKelas").keyup(function() {
-                table.draw();
-            });
-
             $('#createNewItem').click(function() {
                 $('#saveBtn').val("create-Item");
                 $('#Item_id').val('');
@@ -390,56 +374,6 @@
                 })
                 });
             @endcan
-
-            // sesi
-            // $('body').on('click', '.sesi', function() {
-            //     let _token = $('meta[name="csrf-token"]').attr("content");
-            //     var id = $(this).data("id");
-            //     var url = $(this).data("url");
-            //     Swal.fire({
-            //         title: 'Apakah Anda Yakin ?',
-            //         text: "Anda Akan Mengubah Sesi User ini !",
-            //         icon: 'warning',
-            //         showCancelButton: true,
-            //         confirmButtonColor: '#3085d6',
-            //         cancelButtonColor: '#d33',
-            //         confirmButtonText: 'Change Now'
-            //     }).then((result) => {
-            //         if (result.isConfirmed) {
-            //             $.ajax({
-            //                 type: "POST",
-            //                 url: "/admin/sesi",
-            //                 data: {
-            //                         _token: _token,
-            //                         id:id
-            //                     },
-            //                 success: function(response) {
-            //                     if (response.success) {
-            //                         Swal.fire({
-            //                             icon: "success",
-            //                             title: "Selamat",
-            //                             text: response.success
-            //                         });
-            //                         table.draw();
-            //                     } else {
-            //                         Swal.fire({
-            //                             icon: "error",
-            //                             title: "Mohon Maaf !",
-            //                             text: response.error
-            //                         });
-            //                     }
-            //                 },
-            //                 error: function() {
-            //                     Swal.fire({
-            //                         icon: "error",
-            //                         title: "Oops...",
-            //                         text: "Something went wrong!"
-            //                     });
-            //                 }
-            //             });
-            //         }
-            //     })
-            // });
             $('body').on('click', '.sesi_aktif', function() {
                 let id = $(this).attr("data-id");
                 let _token = $('meta[name="csrf-token"]').attr("content");
@@ -544,56 +478,4 @@
         });
 
     </script>
-    {{-- <script type="text/javascript">
-        $(function() {
-
-            var table = $('.data-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('pemilih.index') }}",
-                    data: function(d) {
-                        d.email = $('.searchKelas').val(),
-                            d.search = $('input[name="kelas"]').val()
-                    }
-                },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
-                    },
-                    {
-                        data: 'nim',
-                        name: 'nim'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'jurusan',
-                        name: 'jurusan'
-                    },
-                    {
-                        data: 'kelas',
-                        name: 'kelas'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ]
-            });
-
-            $(".searchKelas").keyup(function() {
-                table.draw();
-            });
-        });
-
-    </script> --}}
 @endsection

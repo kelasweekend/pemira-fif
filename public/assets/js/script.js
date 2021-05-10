@@ -160,11 +160,56 @@ $(document).ready(function () {
             $("#ketua").text("Nama ketua : " + data.nama_ketua);
             $("#wakil").text("Nama Wakil : " + data.nama_wakil);
             $("#jurusan").text("Asal Jurusan : " + data.jurusan);
-            $("#foto").attr("src","/images/"+data.image);
+            $("#foto").attr("src", "/images/" + data.image);
             $(".rekam_jejak").append(data.rekam_jejak);
             $(".visi").append(data.visi);
             $(".misi").append(data.misi);
             console.log(data)
         })
+    });
+});
+
+// validasi
+$(document).ready(function () {
+    $(".cari").click(function () {
+        event.preventDefault();
+
+        let nim = $("input[name=nim]").val();
+        let _token = $('meta[name="csrf-token"]').attr("content");
+
+        $.ajax({
+            url: "/validasi",
+            type: "POST",
+            data: {
+                nim: nim,
+                _token: _token
+            },
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Selamat",
+                        text: response.success
+                    });
+                    document.getElementById("post-form").reset();
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Mohon Maaf !",
+                        text: response.error,
+                        confirmButtonText: 'Tutup'
+                    });
+                    document.getElementById("post-form").reset();
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    confirmButtonText: 'Cancel'
+                });
+            }
+        });
     });
 });
