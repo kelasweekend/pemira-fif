@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Setting\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -37,5 +38,10 @@ class CreateAdminUserSeeder extends Seeder
         $permissions_guest = Permission::create(['name' => 'view-only']);
         $role_guest->syncPermissions($permissions_guest);
         $guest->assignRole('guest');
+
+        // setting
+        Setting::create([
+            'tanggal' => "2021-05-10"
+        ]);
     }
 }
