@@ -161,10 +161,10 @@ $(document).ready(function () {
             $("#wakil").text("Nama Wakil : " + data.nama_wakil);
             $("#jurusan").text("Asal Jurusan : " + data.jurusan);
             $("#foto").attr("src", "/images/" + data.image);
-            $(".rekam_jejak").append(data.rekam_jejak);
-            $(".visi").append(data.visi);
-            $(".misi").append(data.misi);
-            console.log(data)
+
+            $(".rekam_jejak").html($(data.rekam_jejak).text());
+            $(".visi").html($(data.visi).text());
+            $(".misi").html($(data.misi).text());
         })
     });
 });

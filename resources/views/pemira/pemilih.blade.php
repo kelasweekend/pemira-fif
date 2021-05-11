@@ -135,18 +135,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Masukan Password</label>
-                                            {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control']) !!}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Ulangi Password</label>
-                                            {!! Form::password('confirm-password', ['placeholder' => 'Confirm Password', 'class' => 'form-control']) !!}
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                             <div class="col-sm-offset-2 col-sm-10">
@@ -287,12 +276,16 @@
                 $('input[name=name]').val(data.name);
                 $('input[name=email]').val(data.email);
                 $('input[name=nim]').val(data.nim);
+                $('select[name=jurusan]').val(data.jurusan);
                 })
                 });
             
                 $('#saveBtn').click(function(e) {
                 e.preventDefault();
                 $.ajax({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: $('#ItemForm').serialize(),
                 url: "{{ route('pemilih.store') }}",
                 type: "POST",
@@ -342,6 +335,9 @@
                 }).then((result) => {
                 if (result.isConfirmed) {
                 $.ajax({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 type: "DELETE",
                 url: url,
                 success: function(response) {
@@ -374,6 +370,7 @@
                 })
                 });
             @endcan
+
             $('body').on('click', '.sesi_aktif', function() {
                 let id = $(this).attr("data-id");
                 let _token = $('meta[name="csrf-token"]').attr("content");

@@ -60,23 +60,28 @@ class VoteController extends Controller
             $suara_masuk = Vote::all()->count();
             $golput = User::where('sesi', TRUE)->count();
             $paslon = Calon::all();
-            $calon = [];
+            $calon_id = [];
             foreach ($paslon as $pesaing) {
-                $calon[] = $pesaing->id;
+                $calon_id[] = $pesaing->id;
             }
+            // $pasangan = [];
+            // foreach ($paslon as $pasangan) {
+            //     $pasangan[] = $pasangan->nomor_urut;
+            // }
             $user = [];
-            foreach ($calon as $key => $value) {
+            foreach ($calon_id as $key => $value) {
                 $user[] = Vote::where('id_calon', $value)->count();
             }
             return view('frontend.quickcount', [
-                'year' => json_encode($calon, JSON_NUMERIC_CHECK),
+                'year' => json_encode($calon_id, JSON_NUMERIC_CHECK),
                 'user' => json_encode($user, JSON_NUMERIC_CHECK),
+                // 'pasangan' => json_encode($pasangan, JSON_NUMERIC_CHECK),
                 'total_pemilih' => $total_pemilih,
                 'suara_masuk' => $suara_masuk,
                 'golput' => $golput,
             ]);
         } else {
-            return view('frontend.coming');
+            return view('frontend.coming', compact('set'));
         }
     }
     public function detail($id)

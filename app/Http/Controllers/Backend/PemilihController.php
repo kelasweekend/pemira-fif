@@ -20,8 +20,8 @@ class PemilihController extends Controller
     {
         if ($request->ajax()) {
             $data = DB::table('users')
-            ->whereNotIn('id', [1])
-            ->get();
+                ->whereNotIn('id', [1])
+                ->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -35,11 +35,11 @@ class PemilihController extends Controller
                 })
                 ->addColumn('sesi', function ($row) {
                     if ($row->sesi == TRUE) {
-                        $sesi = '<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input sesi_pasif" id="customSwitch'. $row->id .'" data-id="' . $row->id . '" checked><label class="custom-control-label" for="customSwitch'. $row->id .'">Aktif</label></div>';
+                        $sesi = '<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input sesi_pasif" id="customSwitch' . $row->id . '" data-id="' . $row->id . '" checked><label class="custom-control-label" for="customSwitch' . $row->id . '">Aktif</label></div>';
                     } else {
-                        $sesi = '<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input sesi_aktif" id="customSwitch'. $row->id .'" data-id="' . $row->id . '"><label class="custom-control-label" for="customSwitch'. $row->id .'">Non Aktif</label></div>';
+                        $sesi = '<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input sesi_aktif" id="customSwitch' . $row->id . '" data-id="' . $row->id . '"><label class="custom-control-label" for="customSwitch' . $row->id . '">Non Aktif</label></div>';
                     }
-                    
+
                     return $sesi;
                 })
                 ->rawColumns(['action', 'sesi'])
@@ -61,44 +61,100 @@ class PemilihController extends Controller
     }
     public function store(Request $request)
     {
-        if ($request->Item_id == '') {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'nim' => 'required|min:8|max:10|unique:users',
-                'email' => 'required|email|unique:users,email',
-                'jurusan' => 'required',
-                'password' => 'required|same:confirm-password',
-            ]);
-        } else {
-            $validator = Validator::make($request->all(), [
-                'Item_id' => 'required',
-                'name' => 'required',
-                'nim' => 'required|min:8|max:10|unique:users',
-                'email' => 'required|email|unique:users,email',
-                'jurusan' => 'required',
-                'password' => 'same:confirm-password',
-            ]);
-        }
+        // if ($request->Item_id == '') {
+        //     $validator = Validator::make($request->all(), [
+        //         'name' => 'required',
+        //         'nim' => 'required|min:8|max:10|unique:users',
+        //         'email' => 'required|email|unique:users,email',
+        //         'jurusan' => 'required',
+        //     ]);
+        // } else {
+        //     $user = User::findorfail($request->Item_Id);
+        //     $validator = Validator::make($request->all(), [
+        //         'Item_id' => 'required',
+        //         'name' => 'required',
+        //         'nim' => 'required|min:8|max:10',
+        //         'email' => 'required|email',
+        //         'jurusan' => 'required',
+        //     ]);
+        // }
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()->all()], 200);
-        }
-        $user = User::updateOrCreate(
-            ['id' => $request->Item_id],
-            [
+        // if ($validator->fails()) {
+        //     return response()->json(['error' => $validator->errors()->all()], 200);
+        // }
+
+        // if ($request->Item_id == '') {
+        //     $user = User::create([
+        //         'name' => $request->name,
+        //         'nim' => $request->nim,
+        //         'email' => $request->email,
+        //         'jurusan' => $request->jurusan,
+        //         'password' => Hash::make($request->nim),
+        //         'sesi' => FALSE
+        //     ]);
+        //     $user->assignRole('guest');
+        //     return response()->json(['success' => 'User Has Been Create']);
+        // } else {
+        //     return response()->json(['success' => 'User Has Been Update']);
+        // }
+
+
+        // $user = User::updateOrCreate(
+        //     ['id' => $request->Item_id],
+        //     [
+        //         'name' => $request->name,
+        //         'nim' => $request->nim,
+        //         'email' => $request->email,
+        //         'jurusan' => $request->jurusan,
+        //         'password' => Hash::make($request->nim),
+        //         'sesi' => FALSE
+        //     ]
+        // );
+        // if ($request->Item_id != '') {
+        //     DB::table('model_has_roles')->where('model_id', $request->Item_id)->delete();
+        //     $user->assignRole('guest');
+        // } else {
+        //     $user->assignRole('guest');
+        // }
+        if (empty($request->Item_id)) {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'nim' => 'required|min:8|max:10|unique:users',
+                'email' => 'required|email|unique:users,email',
+                'jurusan' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->errors()->all()], 200);
+            }
+            $user = User::create([
                 'name' => $request->name,
                 'nim' => $request->nim,
                 'email' => $request->email,
                 'jurusan' => $request->jurusan,
-                'password' => Hash::make($request->password)
-            ]
-        );
-        if ($request->Item_id != '') {
-            DB::table('model_has_roles')->where('model_id', $request->Item_id)->delete();
+                'password' => Hash::make($request->nim),
+                'sesi' => FALSE
+            ]);
             $user->assignRole('guest');
+            return response()->json(['success' => 'User Has Been Create']);
         } else {
-            $user->assignRole('guest');
+            $validator = Validator::make($request->all(), [
+                'Item_id' => 'required',
+                'name' => 'required',
+                'nim' => 'required|min:8|max:10',
+                'email' => 'required|email',
+                'jurusan' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->errors()->all()], 200);
+            }
+            $user = User::find($request->Item_id)->update([
+                'name' => $request->name,
+                'nim' => $request->nim,
+                'email' => $request->email,
+                'jurusan' => $request->jurusan,
+                'password' => Hash::make($request->nim),
+            ]);
+            return response()->json(['success' => 'User Has Been Update']);
         }
-        return response()->json(['success' => 'Item deleted successfully.']);
     }
 }

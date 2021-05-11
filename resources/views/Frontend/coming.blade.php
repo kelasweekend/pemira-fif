@@ -114,7 +114,7 @@
                 hour = minute * 60,
                 day = hour * 24;
 
-            let birthday = "2021-05-11 00:00:00",
+            let birthday = "{{$set->tanggal}} 00:00:00",
                 countDown = new Date(birthday).getTime(),
                 x = setInterval(function() {
 

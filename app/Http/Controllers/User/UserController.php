@@ -140,6 +140,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
+        DB::table('model_has_roles')->where('model_id', $id)->delete();
         return response()->json(['success' => 'Item deleted successfully.']);
     }
 }
