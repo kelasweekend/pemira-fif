@@ -1,0 +1,410 @@
+.bayangan_1 {
+  box-shadow: rgb(49 53 59 / 12%) 0px 1px 6px 0px;
+}
+.tata_cara {
+  border-radius: 20px;
+  height: 250px;
+  box-shadow: rgb(49 53 59 / 25%) 0px 1px 6px 0px;
+}
+.vote_hasil {
+  border-radius: 20px;
+  height: 100px;
+  box-shadow: rgb(49 53 59 / 25%) 0px 1px 6px 0px;
+  margin-top: 10px;
+}
+.vote_hasil:hover {
+  box-shadow: rgb(49 53 59 / 55%) 0px 1px 6px 0px;
+  transform: translate(-5px, -5px);
+}
+.tata_cara:hover {
+  box-shadow: rgb(49 53 59 / 55%) 0px 1px 6px 0px;
+  transform: translate(-5px, -5px);
+}
+.one {
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+.tahapan {
+  /* margin-bottom: 50px; */
+  font-family: Montserrat, sans-serif;
+  font-weight: 800;
+  /* line-height: 0.8; */
+  color: cadetblue;
+  font-size: 40px;
+  z-index: 1;
+  text-align: center;
+}
+.text-isi{
+    margin-bottom: 2px;
+}
+.ketua{
+    margin-right: 50px;
+}
+.wakil{
+    margin-right: 5px;
+}
+.jurusan{
+    margin-right: 35px;
+}
+.judul {
+  margin-top: 50px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 800;
+  line-height: 0.8;
+  color: cadetblue;
+  font-size: 80px;
+  z-index: 1;
+}
+.login {
+  font-family: Montserrat, sans-serif;
+  font-weight: 800;
+  line-height: 0.8;
+  color: cadetblue;
+  font-size: 50px;
+  z-index: 1;
+}
+.atas {
+  margin-top: 90px;
+}
+.sub_judul {
+  margin-top: 50px;
+  max-width: 500px;
+}
+.lebar_1 {
+  max-width: 100%;
+  margin-left: 1px;
+  margin-top: -20px;
+  height: 20px;
+  background-color: deepskyblue;
+  border-radius: 10px;
+}
+.calon {
+  margin-bottom: 50px;
+}
+
+/* wizard panduan */
+
+#heading {
+  text-transform: uppercase;
+  color: #673ab7;
+  font-weight: normal;
+}
+
+#msform {
+  text-align: center;
+  position: relative;
+  margin-top: 20px;
+}
+
+#msform fieldset {
+  background: white;
+  border: 0 none;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.form-card {
+  text-align: left;
+}
+
+#msform fieldset:not(:first-of-type) {
+  display: none;
+}
+
+#msform input,
+#msform textarea {
+  padding: 8px 15px 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  margin-bottom: 25px;
+  margin-top: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: montserrat;
+  color: #2c3e50;
+  background-color: #eceff1;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+#msform input:focus,
+#msform textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #673ab7;
+  outline-width: 0;
+}
+
+#msform .action-button {
+  width: 100px;
+  background: #673ab7;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 0px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 0px 10px 5px;
+  float: right;
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+  background-color: #311b92;
+}
+
+#msform .action-button-previous {
+  width: 100px;
+  background: #616161;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 0px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px 10px 0px;
+  float: right;
+}
+
+#msform .action-button-previous:hover,
+#msform .action-button-previous:focus {
+  background-color: #000000;
+}
+
+.card {
+  z-index: 0;
+  border: none;
+  position: relative;
+}
+
+.fs-title {
+  font-size: 25px;
+  color: #673ab7;
+  margin-bottom: 15px;
+  font-weight: normal;
+  text-align: left;
+}
+
+.purple-text {
+  color: #673ab7;
+  font-weight: normal;
+}
+
+.steps {
+  font-size: 25px;
+  color: gray;
+  margin-bottom: 10px;
+  font-weight: normal;
+  text-align: right;
+}
+
+.fieldlabels {
+  color: gray;
+  text-align: left;
+}
+
+#progressbar {
+  margin-bottom: 30px;
+  overflow: hidden;
+  color: lightgrey;
+}
+
+#progressbar .active {
+  color: #673ab7;
+}
+
+#progressbar li {
+  list-style-type: none;
+  font-size: 15px;
+  width: 25%;
+  float: left;
+  position: relative;
+  font-weight: 400;
+}
+
+#progressbar #account:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f007";
+}
+
+#progressbar #personal:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f681";
+}
+
+#progressbar #payment:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f1c1";
+}
+
+#progressbar #confirm:before {
+  font-family: "Font Awesome 5 free";
+  content: "\f1fe";
+}
+
+#progressbar li:before {
+  width: 50px;
+  height: 50px;
+  line-height: 45px;
+  display: block;
+  font-size: 20px;
+  color: #ffffff;
+  background: lightgray;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  padding: 2px;
+}
+
+#progressbar li:after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: lightgray;
+  position: absolute;
+  left: 0;
+  top: 25px;
+  z-index: -1;
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+  background: #673ab7;
+}
+
+.progress {
+  height: 20px;
+}
+
+.progress-bar {
+  background-color: #673ab7;
+}
+
+.fit-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* vote sustem */
+
+.container_calon {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.card_calon {
+  margin: auto;
+  width: 350px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: white;
+  margin-top: 50px;
+  transition: all 0.2s;
+  box-shadow: rgb(49 53 59 / 25%) 0px 1px 6px 0px;
+}
+.card_calon:hover {
+  box-shadow: rgb(49 53 59 / 55%) 0px 1px 6px 0px;
+  transform: translate(-5px, -5px);
+}
+
+.card_calon:hover .icon svg {
+  animation: iconjln 1s;
+}
+
+.img-cover {
+  position: relative;
+}
+
+.card_calon img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.icon {
+  position: absolute;
+  top: 0;
+  padding: 25px;
+  right: 0;
+  border-bottom-left-radius: 20px;
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+.icon img {
+  width: 25px;
+  height: 25px;
+}
+
+.desc {
+  padding: 1.5em;
+  font-family: "Poppins", sans-serif;
+}
+.desc h1 {
+  display: inline;
+}
+.tdesc {
+  margin-bottom: 40px;
+  width: 100%;
+  height: 50px;
+  overflow: auto;
+}
+
+.desc a {
+  text-decoration: none;
+  background-color: dodgerblue;
+  padding: 15px 25px;
+  color: white;
+  border-radius: 15px;
+  display: block;
+  text-align: center;
+  transition: all 0.2s;
+}
+.desc a:hover {
+  background-color: SteelBlue;
+}
+.desc a:hover svg {
+  animation: iconjln 1s;
+}
+
+@keyframes iconjln {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  50% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  70% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+.img_awal{
+  width: 430px;
+}
+@media (max-width: 768px) { 
+  .vote_hasil{
+    margin-top: 20px;
+  }
+  .judul {
+    font-size: xxx-large;
+    margin-top: 0px;
+  }
+  .img_awal{
+    width: 300px;
+    margin-top: 40px;
+  }
+  .lebar_1{
+    display: none;
+  }
+}
